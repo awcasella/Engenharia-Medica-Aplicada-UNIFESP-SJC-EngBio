@@ -1,6 +1,6 @@
 # Engenharia Médica Aplicada
 
-This repository contains all the algorithms studied in discipline "Engenharia Médica Aplicada" of Biomedical Engineering course at UNIFESP in the second semester of 2018. All the algorithms were writen in both MatLab and Python Languages. The programatric content of the discipline can be found [here](https://unifesp.br/campus/sjc/images/SJC/03-GRADUCAO/UC/Engenharia_Medica_Aplicada.pdf).
+This repository contains all the machine learning algorithms studied in discipline "Engenharia Médica Aplicada" of Biomedical Engineering course at UNIFESP in the second semester of 2018. All the algorithms were writen in both MatLab and Python Languages. The programatric content of the discipline can be found [here](https://unifesp.br/campus/sjc/images/SJC/03-GRADUCAO/UC/Engenharia_Medica_Aplicada.pdf).
 
 # Getting Started
 
