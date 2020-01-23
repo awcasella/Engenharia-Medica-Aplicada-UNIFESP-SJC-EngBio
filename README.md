@@ -6,11 +6,43 @@ This repository contains all the algorithms studied in discipline "Engenharia MÃ
 
 **Prerequisites**
 
-To run the algorithms in this repo, you'll need to have either MatLab (or Octave) or Python 3.x (and Anaconda) or both installed.
+To run the algorithms in this repo, you'll need to have either MatLab (or Octave) or Python 3 (and Anaconda) or both installed.
 
 **Installing Anaconda**
 
 Instalation of Anaconda in Linux can be found [here](https://www.digitalocean.com/community/tutorials/how-to-install-anaconda-on-ubuntu-18-04-quickstart-pt).
+
+# Algorithms
+
+The algorithms studied in this discipline are divided in the folowing groups:
+
+### Feature extraction and selection algorithms:
+
+- Scalar selection 
+- Vectorial selection
+- Receiver Operating Characteristics (ROC)
+- FDR criteria
+
+### Pre processing data:
+
+- Data normalization
+- Outliers removal
+
+### Dimensionality reduction e Whitening data:
+
+- PCA
+- SVD
+- ICA
+
+### Classification algorithms:
+
+- Bayesian
+- Perceptron
+- Euclidean minimum distance
+- Mahalanobis minimum distance
+- LS
+- FDA
+- SVM
 
 # Built With
 - [Anaconda](www.anaconda.com): Solutions for Data Science Practitioners and Enterprise Machine Learning.
