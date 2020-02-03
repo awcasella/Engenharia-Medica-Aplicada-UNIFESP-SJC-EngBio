@@ -44,7 +44,7 @@ Os algoritimos estudados na disciplina estão divididos nos seguintes grupos:
 - SVM
 
 # Feito com
-- [Anaconda](www.anaconda.com): Solutions for Data Science Practitioners and Enterprise Machine Learning.
+- [Anaconda](https://www.anaconda.com): Solutions for Data Science Practitioners and Enterprise Machine Learning.
 
 - [MatLab](https://www.mathworks.com): A software for numerical computation.
 
