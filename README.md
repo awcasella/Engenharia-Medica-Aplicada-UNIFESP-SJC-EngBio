@@ -10,7 +10,8 @@ To run the algorithms in this repo, you'll need to have either MatLab (or Octave
 
 **Installing Anaconda**
 
-Instalation of Anaconda in Linux can be found [here](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-18-04).
+Instalation of Anaconda in Linux Ubuntu 18.04 can be found 
+<a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-18-04" target="_blank">here</a>.
 
 # Algorithms
 
