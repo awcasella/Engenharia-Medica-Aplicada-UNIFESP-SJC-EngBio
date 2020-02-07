@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 def featureExtraction(signal, Fs, method='welch', field='sleep', bands=0):
 	"""Feature extraction function based on pertinent features for sleep or hrv analysis
-
+	
 	INPUTS
 	- signal: Matrix N by M, with N signals and M samples.
 	- Fs: Sample rate of the signals.
@@ -81,12 +81,12 @@ def normalizacao(VETOR, metodo='std', r=1):
 	         = 'mmx': limitada entre -1 e 1
 	         = 'sfm': rescala nao linear no intervalo 0 a 1
 	- r = parametro do metodo sfm (padrao =1)
-
+	
 	OUTPUT:
 	- VETORNORM = 1 x N*C: vetor com os valores normalizados da caracteristica 
-
-"""
-
+	
+	"""
+	
 	M, N = VETOR.shape
 	VETOR = VETOR.reshape(1, M*N)
 	if metodo == 'std':
@@ -129,12 +129,21 @@ def rmoutliers(data, p=3):
 	return data, outliers, indexes
 
 
-"""
-AULA 18
-"""
-
 def rocMeBabe(classe1, classe2):
-	"""Computes ROC curve and AUC"""
+	"""Computes ROC curve and AUC
+	
+	INPUT
+	- classe1: Numpy array with first class of a feature.
+	- classe2: Numpy array with second class of a feature.
+
+	OUTPUT
+	- AUC: Area under the ROC curve.
+	- ACC: Accuracy.
+	- VP: True positive.
+	- VN: True negative.
+	- FP: False positive.
+	- FN: False negative.
+	"""
 
 	if classe1[-1] > classe2[-1]:
 		aux = classe1
