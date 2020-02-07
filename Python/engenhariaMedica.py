@@ -106,24 +106,27 @@ def normalizacao(VETOR, metodo='std', r=1):
 	return VETORNORM
 
 
-def rmoutliers(dados, p=3):
-	# Remove outliers de um conjunto de valores utilizando como limiar um numero p de desvios padroes em relacao a mediana.
+def rmoutliers(data, p=3):
+	""" Remove outliers de um conjunto de valores utilizando como limiar um numero p de desvios padroes em relacao a mediana.
 
-	#INPUT:
-	# x = vetor com dados de uma CARACTERISTICA
-	# p = numero de desvios padroes em relacao a mediana acima do qual as amostra sao consideradas outliers (padrao = 3)
-	#OUTPUT
-	# dados: dados sem os outliers
-	# outliers: outliers detectados
-	# indexes: indices dos outliers
+	INPUT:
+	- x = vector of data of a single feature.
+	- p = number of standard deviations to be used.
+	
+	OUTPUT
+	- data: data without outliers
+	- outliers: outliers detected
+	- indexes: indexes of outliers
 
-	inferior, inutil = np.where(dados<np.median(dados) - p*dados.std())
-	superior, inutil = np.where(dados>np.median(dados) + p*dados.std())
+	"""
+
+	inferior = np.where(data<np.median(data) - p*data.std())[0]
+	superior = np.where(data>np.median(data) + p*data.std())[0]
 	indexes = np.union1d(inferior, superior)
-	outliers = dados[indexes]
-	dados = np.delete(dados, indexes)
+	outliers = data[indexes]
+	data = np.delete(data, indexes)
 
-	return dados, outliers, indexes
+	return data, outliers, indexes
 
 
 """
