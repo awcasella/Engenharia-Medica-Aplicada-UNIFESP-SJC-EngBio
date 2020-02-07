@@ -543,7 +543,18 @@ def bayesian(medias, covariancias, priors, x):
 
 
 def minimumDistance(medias, Mcov, x):
-	"""Minunimum distance classifier based on eucliidean and Mahallanobis distance"""
+	"""Minunimum distance classifier based on eucliidean and Mahallanobis distance
+	INPUTS
+	- medias: 2D matrix with each column containing the mean of each class.
+	- Mcov: 2D Covariance matrix of whole space
+	- x: New pattern to be classified.
+
+	OUTPUTS
+	- mahalanobis: Mahalanobis distance of new pattern to each class.
+	- mahalanobisClass: Classification of new patter accordingly to mahalanobis distance.
+	- euclideana: Euclidean distance of new pattern to each class.
+	- euclideanaClass: Classification of new patter accordingly to euclidean distance.
+	"""
 	M = medias.shape[1]
 	euclideana = np.zeros(M)
 	mahalanobis = np.zeros(M)
@@ -553,13 +564,12 @@ def minimumDistance(medias, Mcov, x):
 		mahalanobis[n] = (x - mu).dot(np.linalg.inv(Mcov)).dot((x - mu).T)
 	euclideanaClass = int(np.where(euclideana == min(euclideana)))
 	mahalanobisClass = int(np.where(mahalanobis == min(mahalanobis)))
+	
+	mahalanobis = tuple(mahalanobis)
+	euclideana = tuple(euclideana)
 
-	return tuple(mahalanobis), mahalanobisClass, tuple(euclideana), euclideanaClass
+	return mahalanobis, mahalanobisClass, euclideana, euclideanaClass
 
-
-"""
-AULA 30
-"""
 
 def perceptron(classe1, classe2, rho=0.1, niter=1000):
 	J = lambda p, w, dados, Y: sum(p[Y]*w.dot(dados[:, Y]))
