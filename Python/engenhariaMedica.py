@@ -5,61 +5,71 @@ from scipy.interpolate import Rbf
 from itertools import permutations, combinations
 import matplotlib.pyplot as plt 
 
-"""
-AULA 14
-"""
+def featureExtraction(signal, Fs, method='welch', field='sleep', bands=0):
+	"""Feature extraction function based on pertinent features for sleep or hrv analysis
 
-def featureExtraction(sinal, Fs, bandas=0, metodo='welch', tipo='sleep'):
-	"""Feature extraction function based on pertinent features for sleep analysis"""
+	INPUTS
+	- signal: Matrix N by M, with N signals and M samples.
+	- Fs: Sample rate of the signals.
+	- method: Spectral method to be used. "welch" or "burg"
+	- field: What kind of features will be calculated: "sleep" or "hrv".
+	- bands: Number of eeg bands to be calculated. Only for sleep analysis.
 
-	N, M = sinal.shape
-	if tipo.lower() == 'sleep':
-		#L = 15 + bandas.shape[0]
+	OUTPUTS
+	- data: matrix of features in each column.
+	
+	"""
+
+	N, M = signal.shape
+	if field.lower() == 'sleep': # Calculates relevant features for sleep analysis
+		#L = 15 + bands.shape[0]
 		L = 15
-		dados = np.zeros([L, N])
+		data = np.zeros([L, N])
 		
 		# Caracteristicas temporais
-		dados[0, :] = np.average(sinal, axis=1)                            # Media
-		dados[1, :] = np.average(abs(sinal), axis=1)                       # Media retificada
-		dados[2, :] = np.var(sinal, axis=1, ddof=1)                        # Variancia
-		dados[3, :] = np.average(np.diff(sinal, n=1, axis=1), axis=1)      # Media da primeira derivada
-		dados[4, :] = np.var(np.diff(sinal, n=1, axis=1), axis=1, ddof=2)  # Variancia da primeira derivada
-		dados[5, :] = np.average(np.diff(sinal, n=2, axis=1), axis=1)      # Media da segunda derivada
-		dados[6, :] = np.var(np.diff(sinal, n=2, axis=1), axis=1, ddof=2)  # Variancia da segunda derivada
-		dados[7, :] = dados[4, :]/dados[2, :]                              # Mobilidade Estatistica 
-		dados[8, :] = np.sqrt(dados[6, :]/dados[4, :] - dados[7, :])       # Complexidade Estatistica 
-		dados[9, :] = skew(sinal, axis=1)                                  # Obliquidade
-		dados[10, :] = kurtosis(sinal, axis=1)                             # Kurtose
+		data[0, :] = np.average(signal, axis=1)                            # Media
+		data[1, :] = np.average(abs(signal), axis=1)                       # Media retificada
+		data[2, :] = np.var(signal, axis=1, ddof=1)                        # Variancia
+		data[3, :] = np.average(np.diff(signal, n=1, axis=1), axis=1)      # Media da primeira derivada
+		data[4, :] = np.var(np.diff(signal, n=1, axis=1), axis=1, ddof=2)  # Variancia da primeira derivada
+		data[5, :] = np.average(np.diff(signal, n=2, axis=1), axis=1)      # Media da segunda derivada
+		data[6, :] = np.var(np.diff(signal, n=2, axis=1), axis=1, ddof=2)  # Variancia da segunda derivada
+		data[7, :] = data[4, :]/data[2, :]                               # Mobilidade Estatistica 
+		data[8, :] = np.sqrt(data[6, :]/data[4, :] - data[7, :])        # Complexidade Estatistica 
+		data[9, :] = skew(signal, axis=1)                                  # Obliquidade
+		data[10, :] = kurtosis(signal, axis=1)                             # Kurtose
 		for n in range(0, N):	
 			# Caracteristicas Espectrais
-			if metodo.lower() == 'welch':
-				f, pxx = welch(sinal[n, :], fs=Fs, window='hanning', noverlap=50)
-			elif metodo.lower() == 'burg':
+			if method.lower() == 'welch':
+				f, pxx = welch(signal[n, :], fs=Fs, window='hanning', noverlap=50)
+			elif method.lower() == 'burg':
 				print('Em construcao... Usando metodo welch')
-				f, pxx = welch(sinal[n, :], fs=Fs, window='hanning', noverlap=50, axis=1)
+				f, pxx = welch(signal[n, :], fs=Fs, window='hanning', noverlap=50, axis=1)
 
-			dados[11, n] = np.sum(f*pxx)/np.sum(pxx)                                    # Frequencia Central
-			dados[12, n] = pxx[np.where(f-dados[11, :] == min(f-dados[11, :]))[0]]      # Potencia na frequencia central
-			dados[13, n] = np.sum((f-dados[11, n])*pxx)/np.sum(pxx)                     # Largura de Banda
-			dados[14, n] = f[int(min(f[np.cumsum(pxx) > np.sum(pxx)*0.9]))]             # Frequencia de margem
+			data[11, n] = np.sum(f*pxx)/np.sum(pxx)                                    # Frequencia Central
+			data[12, n] = pxx[np.where(f-data[11, :] == min(f-data[11, :]))[0]]        # Potencia na frequencia central
+			data[13, n] = np.sum((f-data[11, n])*pxx)/np.sum(pxx)                      # Largura de Banda
+			data[14, n] = f[int(min(f[np.cumsum(pxx) > np.sum(pxx)*0.9]))]             # Frequencia de margem
 		"""
 		for c in range(13, L):
-			dados[c, n] = 
+			data[c, n] = 
 		"""	
-	elif tipo.lower() == 'tacogram':
-		Fi = Fs # Frequencia de interpolacao
+	elif field.lower() == 'hrv': # Calculates relevant features for HRV analysis
+		Fi = Fs # interpolation sample rate
 		x = np.linspace(1, M, M)
 		xx = np.linspace(1, M, M*Fi)
 		L = 4
 
-		dados = np.zeros([L, N])
+		data = np.zeros([L, N])
 		for n in range(0, N):
 			f = Rbf(x, sinal[n, :], function='cubic')
 			sinalInterpolado = f(xx)
-			dados[0, n] = sum((60/(sinalInterpolado)).T).T                    # Frequencia Cardiaca
-			dados[1, n] = np.std(sinalInterpolado)                            # SDNN
-			dados[2, n] = np.average(np.diff(sinalInterpolado, n=1)**2)**0.5  # rMSSD
-			dados[3, n] = sum((np.diff(sinalInterpolado, n=1)).T).T           # PNN50
+			data[0, n] = sum((60/(sinalInterpolado)).T).T                    # Heart rate
+			data[1, n] = np.std(sinalInterpolado)                            # SDNN
+			data[2, n] = np.average(np.diff(sinalInterpolado, n=1)**2)**0.5  # rMSSD
+			data[3, n] = sum((np.diff(sinalInterpolado, n=1)).T).T           # PNN50
+
+	return data.T
 
 	return dados
 
