@@ -487,16 +487,26 @@ def autoordenar(eigvec,eigval):
 
 
 def klt(X, n):
-	"""Calculates the n principal components of X"""
-	X = (X.T - X.mean(axis=1)).T # Remover a media de cada caracteristica para centralizar os dados
-	N = X.shape[1]
-	Mcov = X.dot(X.T)/N # Matriz de covariancia
+	"""Calculates the n principal components of X
+	INPUTS
+	- X: Data matrix, features are on the columns
+	- n: Number of principal components to be calculated.
+
+	OUTPUTS
+	- eigvec: Eigenvectors which are a base for the new space generated.
+	- eigval: Eigenvalues related to the eigenvectors.
+	- Y: Data projected in the eigenvectors.
+	- erro: error due to loss of least important principal components.
+	"""
+	X = (X - X.mean(axis=0)) # Remover a media de cada caracteristica para centralizar os dados
+	N = X.shape[0]
+	Mcov = X.T.dot(X)/N # Matriz de covariancia
 	eigval, eigvec = np.linalg.eig(Mcov)
-	eigvec,eigval = autoordenar(eigvec,eigval)
+	eigvec, eigval = autoordenar(eigvec,eigval)
 	A = eigvec.T # Autovetores nas linhas
-	Y = A.dot(X) 
+	Y = A.dot(X.T).T
 	erro = sum(eigval[n:])/sum(eigval)
-	return A, eigval, Y[:n], erro
+	return eigvec, eigval, Y[:, :n], erro
 
 
 """
