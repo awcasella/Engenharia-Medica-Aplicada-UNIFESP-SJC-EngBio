@@ -248,20 +248,31 @@ def selecaoEscalar(Mcorr, criterios, N=0, a1=0.5, a2=0.5):
 	M = tuple(M)
 	return ordem, M
 
-"""
-Aula 21
-"""
+
 def exaustivosel(classes, K, criterio):
-	L = classes[0].shape[0] # numero de caracteristicas 
+	""" Selects the best set of k features which separate the classes.
+
+	INPUTS
+	- classes: 
+	- K: Number of features to be selected.
+	- metodo: Type of method to be used: 'exaustivo', 'forward' or 'floating'
+	- criterio: Criteria to be used to calculate the best set of features.
+
+	OUTPUTS
+	- ordem: Set of feature which were selected.
+	- maxcriterio: Value of criteria for the order calculated.
+	"""
+
+	L = classes[0].shape[1] # numero de caracteristicas 
 	M = len(classes) # numero de classes
 	
 	Nc = np.zeros(M) # Numero de padroes em cada classes
 	dados = classes[0]
 	for n in range(0, M):
 		c = classes[n]
-		Nc[n] = c.shape[1]
+		Nc[n] = c.shape[0]
 		if n > 0:
-			dados = np.concatenate((dados, c), axis=1)
+			dados = np.concatenate((dados, c), axis=0)
 
 	N = sum(Nc) # Total de padroes
 	Pc = Nc/N  # Prob de padroes em cada classe
@@ -275,10 +286,10 @@ def exaustivosel(classes, K, criterio):
 
 		for n in range(0, M):
 			c = classes[n]
-			matriz = np.cov(c[subset, :], ddof=0)
+			matriz = np.cov(c[:, subset].T, ddof=0)
 			Sw += Pc[n]*matriz
 
-		Sm = np.cov(dados[subset, :], ddof=0)
+		Sm = np.cov(dados[:, subset].T, ddof=0)
 		Sb = Sm - Sw
 
 		if criterio.upper() == 'J1':
@@ -296,24 +307,35 @@ def exaustivosel(classes, K, criterio):
 			if J3 > maxcriterio:
 				maxcriterio = J3
 				ordem = subset[:]
-		else:
-			print('Criterio Desconhecido!')
-			return
-
-	return tuple(ordem), maxcriterio
+	
+	ordem = tuple(ordem)
+	return ordem, maxcriterio
 
 
 def forwardsel(classes, K, criterio):
-	L = classes[0].shape[0]
+	""" Selects the best set of k features which separate the classes.
+
+	INPUTS
+	- classes: 
+	- K: Number of features to be selected.
+	- metodo: Type of method to be used: 'exaustivo', 'forward' or 'floating'
+	- criterio: Criteria to be used to calculate the best set of features.
+
+	OUTPUTS
+	- ordem: Set of feature which were selected.
+	- maxcriterio: Value of criteria for the order calculated.
+	"""
+
+	L = classes[0].shape[1]
 	M = len(classes)
 
 	Nc = np.zeros(M)
 	dados = classes[0]
 	for n in range(0, M):
 		c = classes[n]
-		Nc[n] = c.shape[1]
+		Nc[n] = c.shape[0]
 		if n > 0:
-			dados = np.concatenate((dados, c), axis=1)
+			dados = np.concatenate((dados, c), axis=0)
 
 	Pc = Nc/sum(Nc)
 
@@ -333,9 +355,9 @@ def forwardsel(classes, K, criterio):
 
 			for n in range(0, M):
 				c = classes[n]
-				Sw += Pc[n]*np.cov(c[subset, :], ddof=0)
+				Sw += Pc[n]*np.cov(c[:, subset].T, ddof=0)
 
-			Sm = np.cov(dados[subset, :], ddof=0)
+			Sm = np.cov(dados[:, subset].T, ddof=0)
 
 			if criterio.upper() == 'J1':
 				J1 = Sm.trace()/Sw.trace()
@@ -352,24 +374,46 @@ def forwardsel(classes, K, criterio):
 				if J3 > maxcriterio:
 					maxcriterio = J3
 					vaiessa = nova
-			else:
-				print('Metodo desconhecido.')
 
 		ordem.append(vaiessa)
-
-	return tuple(ordem), maxcriterio
+	
+	ordem = tuple(ordem)
+	return ordem, maxcriterio
 
 
 def floatingsel(classes, K, criterio):
+	""" Selects the best set of k features which separate the classes.
+
+	INPUTS
+	- classes: 
+	- K: Number of features to be selected.
+	- metodo: Type of method to be used: 'exaustivo', 'forward' or 'floating'
+	- criterio: Criteria to be used to calculate the best set of features.
+
+	OUTPUTS
+	- ordem: Set of feature which were selected.
+	- maxcriterio: Value of criteria for the order calculated.
+	"""
 	pass
 
 
 def selecaoVetorial(classes, K, metodo='exaustivo', criterio='J1'):
-	L = classes[0].shape[0]
+	""" Selects the best set of k features which separate the classes.
+
+	INPUTS
+	- classes: 
+	- K: Number of features to be selected.
+	- metodo: Type of method to be used: 'exaustivo', 'forward' or 'floating'
+	- criterio: Criteria to be used to calculate the best set of features.
+
+	OUTPUTS
+	- ordem: Set of feature which were selected.
+	- maxcriterio: Value of criteria for the order calculated.
+	"""
+	L = classes[0].shape[1]
 
 	if K > L:
-		print('Oh meu consagrado, tem que escolher um numero menor de caracteristicas.')
-		return
+		raise AttributeError('Please, choose a smaller number of features to be selected.')
 
 	if metodo.lower() == 'exaustivo':
 		ordem, maxcriterio = exaustivosel(classes=classes, K=K, criterio=criterio)
