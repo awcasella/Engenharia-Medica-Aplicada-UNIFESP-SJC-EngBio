@@ -29,7 +29,7 @@ The algorithms studied in this discipline are divided in the folowing groups:
 - Data normalization
 - Outliers removal
 
-### Dimensionality reduction e Whitening data:
+### Dimensionality reduction and Whitening data:
 
 - PCA
 - SVD
@@ -39,6 +39,7 @@ The algorithms studied in this discipline are divided in the folowing groups:
 
 - Bayesian
 - Perceptron
+- Perceptron Pocket
 - Euclidean minimum distance
 - Mahalanobis minimum distance
 - LS
