@@ -360,17 +360,26 @@ def forwardsel(classes, K, criterio):
 			Sm = np.cov(dados[:, subset].T, ddof=0)
 
 			if criterio.upper() == 'J1':
-				J1 = Sm.trace()/Sw.trace()
+				if S == 1:
+					J1 = Sm/Sw
+				else:
+					J1 = Sm.trace()/Sw.trace()
 				if J1 > maxcriterio:
 					maxcriterio = J1
 					vaiessa = nova
 			elif criterio.upper() == 'J2':
-				J2 = np.linalg.det(np.linalg.inv(Sw).dot(Sm))
+				if S == 1:
+					J2 = Sm/Sw
+				else:
+					J2 = np.linalg.det(np.linalg.inv(Sw).dot(Sm))
 				if J2 > maxcriterio:
 					maxcriterio = J2
 					vaiessa = nova
 			elif criterio.upper() == 'J3':
-				J3 = np.trace(np.linalg.inv(Sw).dot(Sm))/S
+				if S == 1:
+					J3 = Sm/Sw
+				else:
+					J3 = np.trace(np.linalg.inv(Sw).dot(Sm))/S
 				if J3 > maxcriterio:
 					maxcriterio = J3
 					vaiessa = nova
@@ -427,11 +436,22 @@ def selecaoVetorial(classes, K, metodo='exaustivo', criterio='J1'):
 
 	return ordem, maxcriterio
 
-"""
-Aula 25
-"""
 def aula25_GerandoDadosGaussianos(medias, covariancias, N, priors=None, plotar=1, seed=0):
-	"""Genenrates gaussian N-point data based on the mean and covariances, and priors"""
+	""" Generates gaussian N-point data based on the mean and covariances, and priors
+	
+	INPUTS
+	- medias: Numpy array of mean of each class in its rows.
+	- covariancias: List of each class' covariance matrix.
+	- N: Number of patterns to be generated.
+	- priors: Weights for each class.
+	- plotar: Flag to plot the data or not.
+	- seed: Seed for generating pseudorandom numbers.
+
+	OUTPUTS
+	- dadossim: Simulated data, each row containing a pattern and each column containing a feature.
+	- classessim: Numpy array of values of class of each pattern generated.
+	"""
+	
 	L = medias.shape[0]
 	M = medias.shape[1]
 
@@ -444,12 +464,12 @@ def aula25_GerandoDadosGaussianos(medias, covariancias, N, priors=None, plotar=1
 		Ni[i] = np.around(priors[n]*N)
 
 	np.random.seed(seed)
-	dadossim = np.zeros([L, int(sum(Ni))])
+	dadossim = np.zeros([int(sum(Ni)), L])
 	classessim = np.zeros([1, int(sum(Ni))])
 
 	for i in range(1, M+1):
 		n = i-1
-		dadossim[:, int(sum(Ni[0:i])):int(sum(Ni[0:i+1]))] = np.random.multivariate_normal(medias[:,n], covariancias[n,:,:], int(Ni[i])).T
+		dadossim[int(sum(Ni[0:i])):int(sum(Ni[0:i+1])), :] = np.random.multivariate_normal(medias[:,n], covariancias[n,:,:], int(Ni[i]))
 		classessim[:, int(sum(Ni[0:i])):int(sum(Ni[0:i+1]))] = n
 
 	return dadossim, classessim
