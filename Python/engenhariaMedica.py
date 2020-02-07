@@ -572,6 +572,18 @@ def minimumDistance(medias, Mcov, x):
 
 
 def perceptron(classe1, classe2, rho=0.1, niter=1000):
+	"""Binary Perceptron classifier 
+	INPUTS
+	- classe1: 2D numpy matrix of class1
+	- classe2: 2D numpy matrix of class1
+	- rho: Weight of error, indicates how much is the step during each iteration.
+	- niter: Number of maximum iterations to perform.
+	
+	OUTPUTS
+	- w: Perceptron hyperplane.
+	- iter: Number of iterations it took to calculate w
+	"""
+
 	J = lambda p, w, dados, Y: sum(p[Y]*w.dot(dados[:, Y]))
 	L, N1 = classe1.shape
 	L2, N2 = classe2.shape
@@ -619,6 +631,18 @@ def perceptron(classe1, classe2, rho=0.1, niter=1000):
 
 
 def pocket(classe1, classe2, rho=0.1, niter=1000):
+	"""Binary Perceptron Pocket classifier
+	INPUTS
+	- classe1: 2D numpy matrix of class1
+	- classe2: 2D numpy matrix of class1
+	- rho: Weight of error, indicates how much is the step during each iteration.
+	- niter: Number of maximum iterations to perform.
+	
+	OUTPUTS
+	- w0: Perceptron hyperplane.
+	- iter: Number of iterations it took to calculate w
+	"""
+
 	J = lambda p, w, dados, Y: sum(p[Y]*w.dot(dados[:, Y]))
 	L, N1 = classe1.shape
 	L2, N2 = classe2.shape
