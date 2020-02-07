@@ -37,6 +37,7 @@ Os algoritimos estudados na disciplina estão divididos nos seguintes grupos:
 
 - Bayesiano
 - Perceptron
+- Perceptron Pocket
 - Minima distancia euclideana
 - Minima distancia de Mahalanobis
 - LS
