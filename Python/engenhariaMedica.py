@@ -253,7 +253,7 @@ def exaustivosel(classes, K, criterio):
 	""" Selects the best set of k features which separate the classes.
 
 	INPUTS
-	- classes: 
+	- classes: Python List of numpy matrixes of each class, row are patterns and columns are features
 	- K: Number of features to be selected.
 	- metodo: Type of method to be used: 'exaustivo', 'forward' or 'floating'
 	- criterio: Criteria to be used to calculate the best set of features.
@@ -316,7 +316,7 @@ def forwardsel(classes, K, criterio):
 	""" Selects the best set of k features which separate the classes.
 
 	INPUTS
-	- classes: 
+	- classes: Python List of numpy matrixes of each class, row are patterns and columns are features 
 	- K: Number of features to be selected.
 	- metodo: Type of method to be used: 'exaustivo', 'forward' or 'floating'
 	- criterio: Criteria to be used to calculate the best set of features.
@@ -394,7 +394,7 @@ def floatingsel(classes, K, criterio):
 	""" Selects the best set of k features which separate the classes.
 
 	INPUTS
-	- classes: 
+	- classes: Python List of numpy matrixes of each class, row are patterns and columns are features
 	- K: Number of features to be selected.
 	- metodo: Type of method to be used: 'exaustivo', 'forward' or 'floating'
 	- criterio: Criteria to be used to calculate the best set of features.
@@ -410,7 +410,7 @@ def selecaoVetorial(classes, K, metodo='exaustivo', criterio='J1'):
 	""" Selects the best set of k features which separate the classes.
 
 	INPUTS
-	- classes: 
+	- classes: Python List of numpy matrixes of each class, row are patterns and columns are features
 	- K: Number of features to be selected.
 	- metodo: Type of method to be used: 'exaustivo', 'forward' or 'floating'
 	- criterio: Criteria to be used to calculate the best set of features.
