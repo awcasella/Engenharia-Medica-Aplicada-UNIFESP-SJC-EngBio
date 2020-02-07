@@ -71,25 +71,22 @@ def featureExtraction(signal, Fs, method='welch', field='sleep', bands=0):
 
 	return data.T
 
-	return dados
-
-
-"""
-AULA 17
-"""
-
 def normalizacao(VETOR, metodo='std', r=1):
-	# Normaliza os valores de uma determinada caracteristica.
-	# INPUT:
-	# - VETOR: valores de uma caracteristica calculada em N padroes e C classes,
-	#   Vetor com dimensao 1 x N*C
-	# - metodo ='std' : normalizacao linear (padrao)
-	#       = 'mmx': limitada entre -1 e 1
-	#       = 'sfm': rescala nao linear no intervalo 0 a 1
-	# - r = parametro do metodo sfm (padrao =1)
-	#
-	# OUTPUT:
-	# - VETORNORM = 1 x N*C: vetor com os valores normalizados da caracteristica 
+	""" Normalizes the values of a single feature.
+
+	INPUT:
+	- VETOR: valores de uma caracteristica calculada em N padroes e C classes,
+	  Vetor com dimensao 1 x N*C
+	- metodo ='std' : normalizacao linear (padrao)
+	         = 'mmx': limitada entre -1 e 1
+	         = 'sfm': rescala nao linear no intervalo 0 a 1
+	- r = parametro do metodo sfm (padrao =1)
+
+	OUTPUT:
+	- VETORNORM = 1 x N*C: vetor com os valores normalizados da caracteristica 
+
+"""
+
 	M, N = VETOR.shape
 	VETOR = VETOR.reshape(1, M*N)
 	if metodo == 'std':
@@ -103,8 +100,7 @@ def normalizacao(VETOR, metodo='std', r=1):
 		Y = Y/(r*VETOR.std())
 		VETORNORM = 1/(1+np.exp(-Y))
 	else:
-		print('Método desconhecido, mas não fique triste nem tudo são rosas.')
-		VETORNORM=[]
+		raise AttributeError("Unknown method, but don't get sad, not everything is made of roses.")
 	VETORNORM = VETORNORM.reshape(M, N)
 
 	return VETORNORM
