@@ -204,6 +204,20 @@ def fdr(classe1, classe2):
 
 
 def selecaoEscalar(Mcorr, criterios, N=0, a1=0.5, a2=0.5):
+	""" Performs a scalar feature selection which orders all features individually,
+	from the best to the worst to separate the classes.
+
+	INPUTS
+	- Mcorr: Correlation matrix of all features.
+	- criterios: 
+	- N: Number of best features to be returned.
+	- a1: Weigth for criterios.
+	- a2: Weight for Mcorr.
+
+	OUTPUTS
+	- ordem: Tuple with the order of features.
+	- M: Tuple with criteria for each feature.
+	"""
 	L = Mcorr.shape[0]
 	if len(criterios.shape) != 1:
 		criterios = criterios[0]
@@ -230,7 +244,9 @@ def selecaoEscalar(Mcorr, criterios, N=0, a1=0.5, a2=0.5):
 		M.append(max(MK))
 		ordem.append(int(index[int(np.where(MK == max(MK))[0])]))
 
-	return tuple(ordem), tuple(M)
+	ordem = tuple(ordem)
+	M = tuple(M)
+	return ordem, M
 
 """
 Aula 21
