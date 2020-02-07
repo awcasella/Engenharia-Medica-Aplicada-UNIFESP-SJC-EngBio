@@ -756,21 +756,23 @@ def scatter(classes, K, axis=0):
 	return Sw, Sb
 
 def fda(classes, n):
-	# FDA 
-	# 
-	# INPUTS:
-	# - classes: Celula de classes.
-	# - n: Numero de caracteristicas do novo espaco.
-	# 
-	# OUTPUTS:
-	# - Y: Novo espaço otimizado
-	L = classes[0].shape[0]
-	Sw, Sb = scatter(classes, L)                   # Ayrton, acho que aqui eh L.
+	"""FDA 
+	
+	INPUTS:
+	- classes: List of 2D numpy matrixes of classes.
+	- n: Number of features in the new space.
+	
+	OUTPUTS:
+	- Y: New optmized space.
+	"""
+
+	L = classes[0].shape[1] # Number of features
+	Sw, Sb = scatter(classes, L)
 	eigval, eigvec = np.linalg.eig(np.linalg.inv(Sw).dot(Sb))
 
 	eigvec, eigval = autoordenar(eigvec, eigval)
 
-	C = len(classes)                               # Numero de classes.
+	C = len(classes)                               # Number of classes.
 	A = eigvec[:, 0:C-1].T
 
 	X = classes[0]
