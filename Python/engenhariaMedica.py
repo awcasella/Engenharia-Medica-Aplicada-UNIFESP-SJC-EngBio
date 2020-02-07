@@ -180,11 +180,17 @@ def rocMeBabe(classe1, classe2):
 	return AUC, ACC, VP, VN, FP, FN
 
 
-"""
-Aula 20
-"""
-
 def fdr(classe1, classe2):
+	""" Computes FDR criteria for two classes, this tells how apart each class is of each other
+
+	INPUT
+	- classe1: Numpy array with first class of a feature.
+	- classe2: Numpy array with second class of a feature.
+
+	OUTPUT
+	- FDR: Value calculated for fdr of both classes.
+	"""
+	
 	#return ((classe1.mean()-classe2.mean())**2)/(classe1.var(ddof=1) + classe2.var(ddof=1))
 	if len(classe1.shape) == 1:
 		classe1 = np.array([classe1])
@@ -193,7 +199,8 @@ def fdr(classe1, classe2):
 	
 	num = ((np.average(classe1, axis=1) - np.average(classe2, axis=1))**2)
 	den = (np.var(classe1, axis=1, ddof=1) + np.var(classe2, axis=1, ddof=1))
-	return tuple(num/den)
+	FDR = tuple(num/den)
+	return FDR
 
 
 def selecaoEscalar(Mcorr, criterios, N=0, a1=0.5, a2=0.5):
