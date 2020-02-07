@@ -514,9 +514,20 @@ AULA 28
 """
 
 def bayesian(medias, covariancias, priors, x):
-	"""Classifier based on gaussian distribution of the features"""
-	M = covariancias.shape[0]
-	L = covariancias.shape[0]
+	"""Classifier based on gaussian distribution of the features
+	INPUTS
+	- medias: 2D matrix with each column containing the mean of each class.
+	- covariancias: 3D Matrix of 2D covariance matrixes of each class.
+	- priors: wights of each class.
+	- x: New pattern to be classified.
+
+	OUTPUTS
+	- P: Probability of new pattern belong to each class.
+	- onde: Class in which new pattern is more likely to belong.
+	"""
+
+	M = covariancias.shape[0] # Number of classes
+	
 	lh = np.zeros(M)
 	for n in range(0, M):
 		Mcov = covariancias[n, :, :]
@@ -527,7 +538,8 @@ def bayesian(medias, covariancias, priors, x):
 	mlh = lh.dot(priors)
 	P = lh*priors/mlh
 	onde = int(np.where(P ==  max(P)))
-	return tuple(P), onde
+	P = tuple(P)
+	return P, onde
 
 
 def minimumDistance(medias, Mcov, x):
