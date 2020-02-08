@@ -11,16 +11,27 @@ Para executar os algoritimos deste repositório, é necessário ter MatLab (ou O
 
 Instalação do Anaconda no Linux pode ser encontrado [aqui](https://www.digitalocean.com/community/tutorials/how-to-install-anaconda-on-ubuntu-18-04-quickstart-pt).
 
+
+**Dependencias Python**
+
+Para executar os scripts em python, você precisará ter as seguintes bibliotecas instaladas:
+
+	$ pip3 install numpy
+  
+	$ pip3 install matplotlib
+  
+	$ pip3 install spectrum
+
 # Algoritimos
 
 Os algoritimos estudados na disciplina estão divididos nos seguintes grupos:
 
 ### Algoritimos de extração e seleção de características:
 
-- Seleção Escalar
+- Seleção Escalar por matriz de correlação
+- Seleção Escalar por curva ROC (*Receiver Operating Characteristics*)
 - Seleção Vetorial
-- Receiver Operating Characteristics (ROC)
-- Cirtério FDR
+- Critério FDR
 
 ### Algoritimos de pré processamento de dados:
 
@@ -29,9 +40,9 @@ Os algoritimos estudados na disciplina estão divididos nos seguintes grupos:
 
 ### Algoritimos de redução de dimensionalidade e Whitening data:
 
-- PCA
-- SVD
-- ICA
+- PCA (*Principal Component Analisys*)
+- SVD (*Singular Value Decomposition*)
+- ICA (*Independent Component Analisys*)
 
 ### Algoritimos de classificação:
 
@@ -42,7 +53,7 @@ Os algoritimos estudados na disciplina estão divididos nos seguintes grupos:
 - Minima distancia de Mahalanobis
 - LS
 - FDA
-- SVM
+- SVM (*Support Vector Machine*)
 
 # Feito com
 - [Anaconda](https://www.anaconda.com): Solutions for Data Science Practitioners and Enterprise Machine Learning.
