@@ -13,6 +13,16 @@ To run the algorithms in this repo, you'll need to have either MatLab (or Octave
 Instalation of Anaconda in Linux Ubuntu 18.04 can be found 
 <a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-18-04" target="_blank">here</a>.
 
+**Python dependencies**
+
+To run the python scripts, you'll need to import all of the libraries below:
+
+	$ pip3 install numpy
+  
+	$ pip3 install matplotlib
+  
+	$ pip3 install spectrum
+
 # Algorithms
 
 The algorithms studied in this discipline are divided in the folowing groups:
