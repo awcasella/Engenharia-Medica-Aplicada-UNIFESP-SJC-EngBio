@@ -5,12 +5,7 @@ Esse repositório contém todos os algoritimos estudados na disciplina "Engenhar
 
 **Pre requisitos**
 
-Para executar os algoritimos deste repositório, é necessário ter MatLab (ou Octave) ou Python 3 (junto com anaconda) ou ambos instalados.
-
-**Instalando Anaconda**
-
-Instalação do Anaconda no Linux pode ser encontrado [aqui](https://www.digitalocean.com/community/tutorials/how-to-install-anaconda-on-ubuntu-18-04-quickstart-pt).
-
+Para executar os algoritimos deste repositório, é necessário ter MatLab (ou Octave) ou Python 3 ou ambos instalados.
 
 **Dependencias Python**
 
@@ -56,7 +51,6 @@ Os algoritimos estudados na disciplina estão divididos nos seguintes grupos:
 - SVM (*Support Vector Machine*)
 
 # Feito com
-- [Anaconda](https://www.anaconda.com): Solutions for Data Science Practitioners and Enterprise Machine Learning.
 
 - [MatLab](https://www.mathworks.com): A software for numerical computation.
 
